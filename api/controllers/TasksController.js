@@ -20,7 +20,7 @@ module.exports = {
     {
     	response.view();
     },
-  
+
 
 
   /**
@@ -28,6 +28,4 @@ module.exports = {
    * (specific to TaskController)
    */
   _config: {}
-
-  
 };

@@ -1,2 +1,2 @@
 # Mana Do
-### a Sails application
+### A reactive to-do list.

@@ -9,10 +9,26 @@
 module.exports = {
 
   attributes: {
-  	name: 'string',
-  	email: 'string',
-  	password: 'string',
-  	groupId: 'int'
+  	name: {
+  		type: 'string',
+  		required: true
+  	},
+
+  	email: {
+  		type: 'string',
+  		email: true,
+  		required: true,
+  		unique: true
+  	},
+
+  	password: {
+  		type: 'string',
+  		required: true
+  	},
+
+  	groupId: {
+  		type: 'int'
+  	}
   }
 
 };
