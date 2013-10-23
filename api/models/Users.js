@@ -8,6 +8,8 @@
 
 module.exports = {
 
+	schema: true,
+
   attributes: {
   	name: {
   		type: 'string',
@@ -21,14 +23,12 @@ module.exports = {
   		unique: true
   	},
 
-  	password: {
-  		type: 'string',
-  		required: true
+  	encryptedPassword: {
+  		type: 'string'
   	},
 
   	groupId: {
   		type: 'int'
   	}
   }
-
 };
