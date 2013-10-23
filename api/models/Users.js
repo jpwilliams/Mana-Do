@@ -8,11 +8,27 @@
 
 module.exports = {
 
-  attributes: {
-  	name: 'string',
-  	email: 'string',
-  	password: 'string',
-  	groupId: 'int'
-  }
+	schema: true,
 
+  attributes: {
+  	name: {
+  		type: 'string',
+  		required: true
+  	},
+
+  	email: {
+  		type: 'string',
+  		email: true,
+  		required: true,
+  		unique: true
+  	},
+
+  	encryptedPassword: {
+  		type: 'string'
+  	},
+
+  	groupId: {
+  		type: 'int'
+  	}
+  },
 };

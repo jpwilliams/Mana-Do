@@ -7,17 +7,24 @@
  */
 
 module.exports = {
-
   attributes: {
-  	name: 'string',
-  	userAssignedId: 'int',
-  	listId: 'int',
-  	statusId: 'int'
+  	name: {
+  		type: 'string',
+  		required: true
+  	},
 
-  	/* e.g.
-  	nickname: 'string'
-  	*/
+  	userAssignedId: {
+  		type: 'int'
+  	},
 
+  	listId: {
+  		type: 'int'
+  	},
+
+  	statusId: {
+  		type: 'int',
+  		required: true
+  	}
   }
 
 };

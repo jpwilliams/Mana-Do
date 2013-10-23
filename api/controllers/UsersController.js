@@ -16,8 +16,29 @@
  */
 
 module.exports = {
-    
-  
+    'register': function (req, res) {
+    	res.view();
+    },
+
+    'login': function (req, res) {
+    	res.view();
+    },
+
+    'create': function (req, res, next) {
+    	Users.create(req.params.all(), function userCreated (err, user) {
+    		if (err) {
+    			console.log(err);
+    			req.session.flash = {
+    				err: err
+    			}
+
+    			return res.redirect('/users/register');
+    		};
+
+    		res.json(user);
+    	});
+    },
+
 
 
   /**
@@ -26,5 +47,5 @@ module.exports = {
    */
   _config: {}
 
-  
+
 };
