@@ -30,7 +30,7 @@ module.exports = {
     			console.log(err);
     			req.session.flash = {
     				err: err
-    			}
+    			};
 
     			return res.redirect('/users/register');
     		};

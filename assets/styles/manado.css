@@ -25,7 +25,7 @@ body
 #bar ul
 {
 	list-style-type: none;
-	float: right;	
+	float: right;
 }
 
 #bar ul > li
@@ -66,11 +66,10 @@ body
 
 #content
 {
-	width: 70%;
+	width: 80%;
 	position: relative;
 	top: 57px;
 	margin-bottom: -57px;
-	padding: 20px;
 }
 
 .left { float: left; }
@@ -93,7 +92,7 @@ input
 	-webkit-box-shadow: 0 0 10px 0 rgba(0,0,0,0.1) inset;
 	border-radius: 5px;
 	font-size: 15px;
-	
+
 }
 
 input:focus { outline: 0; }
@@ -110,3 +109,15 @@ input:focus { outline: 0; }
 
 .button:hover { background: #00c1f1; }
 .button:active { background: #00b9e9; }
+
+#task-list { list-style-type: none; }
+#task-list li
+{
+	padding: 10px;
+	border-radius: 2px;
+	border-bottom: 1px solid #eee;
+}
+#task-list li:hover
+{
+	background: #f9f9f9;
+}

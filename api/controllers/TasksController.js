@@ -16,12 +16,31 @@
  */
 
 module.exports = {
-    index: function(request, response)
-    {
-    	response.view();
+    'index': function(req, res) {
+    	Tasks.find().done(function(err, list) {
+    		console.log(list);
+    		res.view({
+    			tasks: list,
+    			stats: {
+    				total: list.length,
+    				awaiting: list.length
+    			}
+    		})
+    	});
     },
 
+    'create': function(req, res) {
+    	Tasks.create(req.params.all(), function taskCreated (err, task) {
+    		if (err) {
+    			console.log(err);
+    			req.session.flash = {
+    				err: err
+    			};
+    		};
 
+    		res.json(task);
+    	});
+    },
 
   /**
    * Overrides for the settings in `config/controllers.js`
