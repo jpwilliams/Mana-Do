@@ -38,7 +38,7 @@ module.exports = {
     			};
     		};
 
-    		res.json(task);
+    		return res.redirect('/tasks');
     	});
     },
 

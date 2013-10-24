@@ -1,7 +1,9 @@
 <div id="bar" class="shadow">
 	<div class="padder">
-		<input class="task-add" type="text" name="new-task" placeholder="New task..." style="width: 70%;">
-		<a class="button" href="#" style="width: 5%;">Add task</a>
+		<form action="tasks/create" method="POST">
+			<input class="task-add" type="text" name="name" placeholder="New task..." style="width: 70%;">
+			<input type="submit" class="button" value="Add task" style="width: 5%;"></a>
+		</form>
 
 		<div class="right" style="width: 20%; padding: 11px 0;">
 			<ul>
