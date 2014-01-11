@@ -10,6 +10,10 @@ html,
 body
 {
 	height: 100%;
+	background: #eee;
+	color: #444;
+	font-size: 14px;
+	font-weight: 400;
 }
 
 #bar
@@ -62,6 +66,8 @@ body
 	top: 57px;
 	margin-bottom: -57px;
 	height: 100%;
+	background: #fff;
+	z-index: 50;
 }
 
 #content
@@ -113,11 +119,34 @@ input:focus { outline: 0; }
 #task-list { list-style-type: none; }
 #task-list li
 {
-	padding: 10px;
+	padding: 15px;
 	border-radius: 2px;
 	border-bottom: 1px solid #eee;
+	background: #fff;
+
+	position: relative;
+	right: -100%;
+
+	opacity: 0;
+	transition: background 0.2s, right 0.2s, opacity 0.2s, color 0.2s, text-decoration 0.2s, margin 0.2s, padding 0.2s;
+	-moz-transition: background 0.2s, right 0.2s, opacity 0.2s, color 0.2s, text-decoration 0.2s, margin 0.2s, padding 0.2s;
+	-webkit-transition: background 0.2s, right 0.2s, opacity 0.2s, color 0.2s, text-decoration 0.2s, margin 0.2s, padding 0.2s;
+}
+#task-list li *
+{
+	/* transition: 0.2s all; */
 }
 #task-list li:hover
 {
 	background: #f9f9f9;
+}
+#task-list li.progress
+{
+
+}
+#task-list li.completed
+{
+	text-decoration: line-through;
+	color: #ccc;
+	background: transparent;
 }

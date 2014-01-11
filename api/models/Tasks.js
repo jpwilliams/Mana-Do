@@ -22,7 +22,16 @@ module.exports = {
   	},
 
   	statusId: {
-  		type: 'int'
-  	}
+  		type: 'int',
+      defaultsTo: 1
+  	},
+
+    due: {
+      type: 'date'
+    },
+
+    sortAfterId: {
+      type: 'int'
+    }
   }
 };

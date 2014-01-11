@@ -18,15 +18,16 @@
 module.exports = {
     'index': function(req, res) {
     	Tasks.find().done(function(err, list) {
-    		console.log(list);
     		res.view({
     			tasks: list,
     			stats: {
     				total: list.length,
     				awaiting: list.length
     			}
-    		})
-    	});
+    		});
+
+            console.log(list);
+    	})
     },
 
     'create': function(req, res) {
@@ -40,6 +41,83 @@ module.exports = {
 
     		return res.redirect('/tasks');
     	});
+    },
+
+    'delete': function(req, res) {
+        console.log(req.params.all());
+
+        Tasks.destroy({id: req.param('taskID')}).done(function(err) {
+            if (err) {
+                console.log(err);
+            } else {
+                console.log('Task #' + req.param('taskID') + ' successfully deleted!');
+                res.send({taskID: req.param('taskID')});
+            }
+        });
+    },
+
+    'click': function(req, res) {
+        console.log(req.params.all());
+        var taskStatus = 0;
+
+        Tasks.findOne(req.param('task')).done(function(err, foundTask) {
+            if (err) {
+                console.log(err);
+            } else {
+                if (foundTask.statusId > 0) {
+                    taskStatus = foundTask.statusId;
+                } else {
+                    taskStatus = 1;
+                }
+            }
+        });
+
+        if (taskStatus > 0) {
+            if (taskStatus == 3) {
+                taskStatus = 1;
+            } else {
+                taskStatus++;
+            }
+
+            Tasks.update(
+                { id: req.param('task') },
+                { statusId: taskStatus },
+                function(err, task) {
+                    if (err) {
+                        console.log(err);
+                    } else {
+                        console.log('Task ' + task + ' successfully set to status ' + taskStatus);
+                        res.send({ taskID: req.param('task'), status: taskStatus });
+                    }
+                }
+            );
+        }
+    },
+
+    'drop': function(req, res) {
+        console.log(req.params.all());
+        //should have taskID, date task was dropped on and sort index
+
+        Tasks.findOne(req.param('taskID')).done(function(err, task) {
+            if (err) {
+                console.log(err);
+            } else {
+                if (req.param('date') != task.due) {
+                    Tasks.update(
+                        { id: req.param('taskID') },
+                        { due: req.param('date') },
+                        function (err, updatedTask) {
+                            if (err) {
+                                console.log(err);
+                            } else {
+                                console.log('Task ' + task + ' successfully set to due date of ' + date);
+                                res.send({ taskID: req.param('taskID'), due: req.param('date')});
+                            }
+                        }
+                    );
+                }
+            }
+        });
     },
 
   /**
