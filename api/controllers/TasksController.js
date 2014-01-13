@@ -18,6 +18,38 @@
 module.exports = {
     'index': function(req, res) {
     	Tasks.find().done(function(err, list) {
+            console.log(list);
+
+            var length = list.length;
+            var smallLength = length - 1;
+
+            for (var i = 0; i < list.length; i++) {
+                var task = list.splice(i, 1)[0];
+
+                if (task.sortAfterId > 0) {
+                    var sortAfterId = task.sortAfterId;
+                    var found = false;
+
+                    for (var index = 0; index < smallLength; index++) {
+                        if (list[index].id == sortAfterId) {
+                            found = index;
+                            break;
+                        }
+                    }
+
+                    if (typeof found == 'number') {
+                        found++; //insert item one index after
+                        list.splice(found, 0, task);
+                    } else {
+                        list.splice(smallLength, 0, task);
+                    }
+                } else {
+                    list.splice(0, 0, task);
+                }
+            }
+
+            console.log(list);
+
     		res.view({
     			tasks: list,
     			stats: {
@@ -25,8 +57,6 @@ module.exports = {
     				awaiting: list.length
     			}
     		});
-
-            console.log(list);
     	})
     },
 
@@ -37,9 +67,12 @@ module.exports = {
     			req.session.flash = {
     				err: err
     			};
-    		};
+    		}
 
-    		return res.redirect('/tasks');
+            console.log(task);
+            console.log('Returning task now...');
+
+            return res.view({task: task, layout: null});
     	});
     },
 
@@ -95,27 +128,36 @@ module.exports = {
     },
 
     'drop': function(req, res) {
-        console.log(req.params.all());
-        //should have taskID, date task was dropped on and sort index
+        var updates = req.param('updates');
+        var length = updates.length;
 
-        Tasks.findOne(req.param('taskID')).done(function(err, task) {
+        for (var i = 0; i < length; ++i) {
+            console.log('Updating task #' + updates[i].id + ' to sort after task #' + updates[i].sortAfterId);
+
+            Tasks.update(
+                { id: updates[i].id },
+                { sortAfterId: updates[i].sortAfterId },
+                function(err, result) {
+                    if (err) {
+                        console.log(err);
+                    } else {
+                        console.log(result);
+                    }
+                }
+            );
+        }
+
+        res.send({status: 'Done'});
+    },
+
+    'bySort': function(req, res) {
+        console.log(req.params.all());
+
+        Tasks.findOne({sortAfterId: req.param('taskID')}).done(function(err, task) {
             if (err) {
                 console.log(err);
             } else {
-                if (req.param('date') != task.due) {
-                    Tasks.update(
-                        { id: req.param('taskID') },
-                        { due: req.param('date') },
-                        function (err, updatedTask) {
-                            if (err) {
-                                console.log(err);
-                            } else {
-                                console.log('Task ' + task + ' successfully set to due date of ' + date);
-                                res.send({ taskID: req.param('taskID'), due: req.param('date')});
-                            }
-                        }
-                    );
-                }
+                res.send({taskID: (task) ? task.id : 0});
             }
         });
     },

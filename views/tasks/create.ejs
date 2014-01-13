@@ -1,0 +1,14 @@
+<%
+	var taskClass = 'noSelect';
+	if (task.statusId == 2) { taskClass += ' progress'; }
+	if (task.statusId == 3) { taskClass += ' completed'; }
+%>
+
+<li id="task-<%= task.id %>" class="<%= taskClass %>" data-sort="<%= task.sortAfterId %>">
+		<a id="task-<%= task.id %>-progress" style="<%= (task.statusId == 2) ? '' : 'opacity: 0; ' %>transition: opacity 0.2s; position: absolute; background: #00ccff; float: left; margin-right: 10px; height: 16px; width: 16px; border-radius: 50%;"><img src="https://lh4.googleusercontent.com/-9HPpBLoeffI/AAAAAAAAAAI/AAAAAAAAAAA/qo559a-SAY8/s30-c/photo.jpg" style="width: 16px; height: 16px; border-radius: 50%;"></a>
+		<a href="#" onclick="deleteTask(<%= task.id %>); event.stopPropagation(); return false;" id="task-<%= task.id %>-completed" style="<%= (task.statusId == 3) ? '' : 'opacity: 0; ' %>transition: opacity 0.2s; position: absolute; background: #ccc; float: left; margin-right: 10px; height: 16px; width: 16px; border-radius: 50%;"></a>
+
+	<span id="task-<%= task.id %>-title" style="transition: margin 0.2s;<%= (task.statusId > 1) ? ' margin-left: 25px;' : '' %>">
+		<%= task.name %>
+	</span>
+</li>
